@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pantry Ledger</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="topbar">
+    <h1>Pantry Ledger</h1>
+    <button id="open-add-btn" class="btn btn-primary">Add item</button>
+  </header>
+
+  <main id="shelves-container" class="shelves">
+    <p class="empty-state">Loading your kitchen…</p>
+  </main>
+
+  <!-- Add / edit item panel -->
+  <div id="item-dialog" class="dialog-backdrop hidden">
+    <form id="item-form" class="dialog">
+      <h2 id="dialog-title">Add item</h2>
+
+      <label>
+        Item name
+        <input type="text" id="food-name" required placeholder="e.g. Basmati rice">
+      </label>
+
+      <label>
+        Shelf
+        <select id="shelf-select" required></select>
+      </label>
+
+      <div class="field-row">
+        <label>
+          Date purchased
+          <input type="date" id="date-purchased">
+        </label>
+        <label>
+          Expires
+          <input type="date" id="expir-date">
+        </label>
+      </div>
+
+      <input type="hidden" id="item-id">
+
+      <div class="dialog-actions">
+        <button type="button" id="cancel-btn" class="btn btn-ghost">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save item</button>
+      </div>
+    </form>
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,229 @@
+:root {
+  --bg: #F5F0E3;
+  --surface: #FFFEFA;
+  --ink: #2E2A22;
+  --ink-soft: #6B6355;
+  --accent: #526B45;
+  --accent-soft: #E4EADD;
+  --warm: #C1872B;
+  --warm-soft: #F6E9D2;
+  --danger: #A6472F;
+  --danger-soft: #F5DFD7;
+  --border: #E2DAC4;
+  --radius: 10px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Public Sans', system-ui, sans-serif;
+  line-height: 1.5;
+}
+
+h1, h2 {
+  font-family: 'Zilla Slab', Georgia, serif;
+  font-weight: 600;
+  margin: 0;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 28px 24px 20px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.topbar h1 {
+  font-size: 1.7rem;
+  letter-spacing: 0.01em;
+}
+
+.shelves {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+}
+
+.location-group {
+  margin-bottom: 32px;
+}
+
+.location-title {
+  font-family: 'Zilla Slab', Georgia, serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin: 0 0 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+}
+
+.shelf-block {
+  margin-bottom: 14px;
+}
+
+.shelf-label {
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+  margin: 0 0 6px 2px;
+}
+
+.item-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  margin-bottom: 8px;
+}
+
+.item-row.expiring-soon { border-left-color: var(--warm); }
+.item-row.expired { border-left-color: var(--danger); }
+
+.item-main {
+  min-width: 0;
+}
+
+.item-name {
+  font-weight: 600;
+  font-size: 0.98rem;
+}
+
+.item-dates {
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+  margin-top: 2px;
+}
+
+.item-dates .flag {
+  font-weight: 600;
+}
+.expiring-soon .flag { color: var(--warm); }
+.expired .flag { color: var(--danger); }
+
+.item-actions {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.icon-btn {
+  border: none;
+  background: transparent;
+  color: var(--ink-soft);
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+.icon-btn:hover { background: var(--accent-soft); color: var(--accent); }
+.icon-btn.delete:hover { background: var(--danger-soft); color: var(--danger); }
+
+.empty-state {
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+  padding: 40px 0;
+  text-align: center;
+}
+
+.btn {
+  font-family: 'Public Sans', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  padding: 9px 16px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: var(--surface);
+}
+.btn-primary:hover { background: #455C39; }
+
+.btn-ghost {
+  background: transparent;
+  border-color: var(--border);
+  color: var(--ink);
+}
+.btn-ghost:hover { background: var(--accent-soft); }
+
+.dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(46, 42, 34, 0.35);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0;
+}
+
+.dialog-backdrop.hidden { display: none; }
+
+.dialog {
+  background: var(--surface);
+  width: 100%;
+  max-width: 480px;
+  border-radius: 16px 16px 0 0;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+@media (min-width: 640px) {
+  .dialog-backdrop { align-items: center; }
+  .dialog { border-radius: 14px; }
+}
+
+.dialog label {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+
+.dialog input,
+.dialog select {
+  font-family: inherit;
+  font-size: 0.95rem;
+  padding: 9px 10px;
+  border-radius: 7px;
+  border: 1px solid var(--border);
+  color: var(--ink);
+  background: var(--bg);
+}
+
+.field-row {
+  display: flex;
+  gap: 12px;
+}
+.field-row label { flex: 1; }
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.error-banner {
+  background: var(--danger-soft);
+  color: var(--danger);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 0.88rem;
+  max-width: 720px;
+  margin: 0 auto 16px;
+}

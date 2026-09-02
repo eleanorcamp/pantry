@@ -12,10 +12,29 @@
 
   <header class="topbar">
     <h1>Pantry Ledger</h1>
-    <button id="open-add-btn" class="btn btn-primary">Add item</button>
+    <div class="topbar-actions">
+      <button id="open-add-btn" class="btn btn-primary hidden">Add item</button>
+      <button id="sign-out-btn" class="btn btn-ghost hidden">Sign out</button>
+    </div>
   </header>
 
-  <main id="shelves-container" class="shelves">
+  <!-- Login screen -->
+  <div id="login-screen" class="login-screen hidden">
+    <form id="login-form" class="dialog login-form">
+      <h2>Sign in</h2>
+      <label>
+        Email
+        <input type="email" id="login-email" required autocomplete="username">
+      </label>
+      <label>
+        Password
+        <input type="password" id="login-password" required autocomplete="current-password">
+      </label>
+      <button type="submit" class="btn btn-primary">Sign in</button>
+    </form>
+  </div>
+
+  <main id="shelves-container" class="shelves hidden">
     <p class="empty-state">Loading your kitchen…</p>
   </main>
 

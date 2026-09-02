@@ -1,4 +1,5 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+// this line needs to be here
 
 // ---- Fill these in with your project's values (Supabase dashboard > Settings > API) ----
 const SUPABASE_URL = 'https://zkjwwhvuhgppvqltkvgw.supabase.co'

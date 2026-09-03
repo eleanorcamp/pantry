@@ -121,24 +121,31 @@ function renderItems(items) {
     byShelf.get(shelfNum).push(item)
   }
  
+  // read through food items grouped by kitchen location
   for (const [loc, byShelf] of [...byLocation.entries()].sort()) {
+    // group is the kitchen location (pantry or fridge)
     const group = document.createElement('section')
     group.className = 'location-group'
- 
+    
+    // put title for kitchen spot
     const title = document.createElement('h2')
     title.className = 'location-title'
     title.textContent = loc
     group.appendChild(title)
  
+    // read through the shelves in the current kitchen location
     for (const [shelfNum, shelfItems] of [...byShelf.entries()].sort((a, b) => a[0] - b[0])) {
+      // div that displays all items from current shelf
       const block = document.createElement('div')
       block.className = 'shelf-block'
  
+
       const label = document.createElement('p')
       label.className = 'shelf-label'
       label.textContent = `Shelf ${shelfNum}`
       block.appendChild(label)
- 
+      
+      // read through food items on the shelf and display them
       for (const item of shelfItems) {
         block.appendChild(renderItemRow(item))
       }
@@ -151,6 +158,7 @@ function renderItems(items) {
 }
  
 function renderItemRow(item) {
+  // create div for each food item
   const row = document.createElement('div')
   row.className = 'item-row'
  

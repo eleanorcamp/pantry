@@ -68,12 +68,33 @@
         Item name
         <input type="text" id="food-name" required placeholder="e.g. Basmati rice">
       </label>
- 
+
       <label>
         Shelf
         <select id="shelf-select" required></select>
       </label>
- 
+
+      <div class="field-row">
+        <label>
+          Quantity
+          <input
+            type="number"
+            id="quantity"
+            min="0"
+            step="0.01"
+          >
+        </label>
+
+        <label>
+          Unit
+          <input
+            type="text"
+            id="unit"
+            placeholder="lb, cans, oz..."
+          >
+        </label>
+      </div>
+
       <div class="field-row">
         <label>
           Date purchased

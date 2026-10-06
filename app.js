@@ -251,7 +251,8 @@ function renderItemRow(item) {
  
   const name = document.createElement('div')
   name.className = 'item-name'
-  name.textContent = item.food_name
+  name.textContent =
+    item.quantity && item.unit ? `${item.food_name} (${item.quantity} ${item.unit})` : item.food_name
   main.appendChild(name)
  
   const dates = document.createElement('div')
@@ -309,6 +310,8 @@ function openDialog(item = null) {
   document.getElementById('food-name').value = item?.food_name ?? ''
   document.getElementById('date-purchased').value = item?.date_purchased ?? ''
   document.getElementById('expir-date').value = item?.expir_date ?? ''
+  document.getElementById('quantity').value = item?.quantity ?? ''
+  document.getElementById('unit').value = item?.unit ?? ''
   shelfSelect.value = item?.shelf_id ?? shelves[0]?.id ?? ''
   dialog.classList.remove('hidden')
 }
@@ -326,6 +329,8 @@ async function handleSave(e) {
     shelf_id: Number(shelfSelect.value),
     date_purchased: document.getElementById('date-purchased').value || null,
     expir_date: document.getElementById('expir-date').value || null,
+    quantity: Number(document.getElementById('quantity').value) || null,
+    unit: document.getElementById('unit').value.trim() || null,
   }
  
   const { error } = id

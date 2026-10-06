@@ -81,7 +81,9 @@ h1, h2 {
   max-width: 720px;
   margin: 0 auto;
   padding: 0 24px 18px;
+
   display: flex;
+  flex-direction: column;
   gap: 10px;
 }
 

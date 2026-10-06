@@ -6,7 +6,7 @@
 <title>Pantry Ledger</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -31,7 +31,27 @@
         <input type="password" id="login-password" required autocomplete="current-password">
       </label>
       <button type="submit" class="btn btn-primary">Sign in</button>
+      <button type="button" id="forgot-password-btn" class="link-btn">Forgot password?</button>
     </form>
+  </div>
+
+  <!-- Shown only when the user arrives via a password recovery link -->
+  <div id="reset-screen" class="login-screen hidden">
+    <form id="reset-form" class="dialog login-form">
+      <h2>Set a new password</h2>
+      <label>
+        New password
+        <input type="password" id="new-password" required minlength="6" autocomplete="new-password">
+      </label>
+      <button type="submit" class="btn btn-primary">Save new password</button>
+    </form>
+  </div>
+
+  <div id="filter-bar" class="filter-bar hidden">
+    <input type="text" id="search-input" placeholder="Search for an item…">
+    <select id="location-filter">
+      <option value="">All locations</option>
+    </select>
   </div>
 
   <main id="shelves-container" class="shelves hidden">

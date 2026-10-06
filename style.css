@@ -101,6 +101,33 @@ h1, h2 {
   min-width: 0;
 }
 
+.location-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.location-tab {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--ink);
+
+  padding: 8px 12px;
+  border-radius: 999px;
+
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.location-tab:hover {
+  background: var(--accent-soft);
+}
+
+.location-tab.active {
+  background: var(--accent);
+  color: var(--surface);
+}
+
 .shelves {
   max-width: 720px;
   margin: 0 auto;

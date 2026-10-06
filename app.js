@@ -29,6 +29,7 @@ const locationFilter = document.getElementById('location-filter')
  
 let shelves = []   // storage_shelves rows, cached for the dropdown + grouping labels
 let allItems = []  // food_items rows from the last successful load, cached so filtering doesn't need a new database call
+let selectedLocation = ''
  
 init()
  
@@ -41,7 +42,7 @@ async function init() {
   addBtn.addEventListener('click', () => openDialog())
   signOutBtn.addEventListener('click', () => supabase.auth.signOut())
   searchInput.addEventListener('input', applyFilters)
-  locationFilter.addEventListener('change', applyFilters)
+  // locationFilter.addEventListener('change', applyFilters)
  
   // React whenever auth state changes: initial load, sign-in, sign-out, token refresh.
   // Supabase fires a special 'PASSWORD_RECOVERY' event when someone arrives via a
@@ -153,10 +154,51 @@ async function loadShelves() {
   // Build the "All locations" dropdown from the distinct kitchen_loc values.
   // Set(...) automatically drops duplicates, so each location appears once even
   // though storage_shelves has one row per shelf (often several rows per location).
-  const uniqueLocations = [...new Set(shelves.map(s => s.kitchen_loc))]
-  locationFilter.innerHTML =
-    '<option value="">All locations</option>' +
-    uniqueLocations.map(loc => `<option value="${loc}">${loc}</option>`).join('')
+  const uniqueLocations = [...new Set(
+  shelves.map(s => s.kitchen_loc)
+  )]
+
+  locationFilter.innerHTML = ''
+
+  const allBtn = document.createElement('button')
+  allBtn.textContent = 'All'
+  allBtn.className = 'location-tab active'
+
+  allBtn.addEventListener('click', () => {
+    selectedLocation = ''
+    updateLocationButtons()
+    applyFilters()
+  })
+
+  locationFilter.appendChild(allBtn)
+
+  for (const loc of uniqueLocations) {
+    const btn = document.createElement('button')
+
+    btn.textContent = loc
+    btn.className = 'location-tab'
+
+    btn.addEventListener('click', () => {
+      selectedLocation = loc
+      updateLocationButtons()
+      applyFilters()
+    })
+
+    locationFilter.appendChild(btn)
+  }
+}
+
+function updateLocationButtons() {
+  const buttons =
+    locationFilter.querySelectorAll('.location-tab')
+
+  buttons.forEach(btn => {
+    const isSelected =
+      (btn.textContent === 'All' && selectedLocation === '') ||
+      btn.textContent === selectedLocation
+
+    btn.classList.toggle('active', isSelected)
+  })
 }
  
 async function loadItems() {
@@ -175,7 +217,6 @@ async function loadItems() {
 // current search text and selected location, then re-renders the list.
 function applyFilters() {
   const searchText = searchInput.value.trim().toLowerCase()
-  const selectedLocation = locationFilter.value
  
   const filtered = allItems.filter(item => {
     const matchesSearch = item.food_name.toLowerCase().includes(searchText)

@@ -133,19 +133,48 @@ h1, h2 {
 
 .item-row {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+  flex-direction: column;
+  gap: 6px;
+
   background: var(--surface);
   border: 1px solid var(--border);
   border-left: 3px solid var(--accent);
   border-radius: var(--radius);
-  padding: 10px 14px;
+
+  padding: 12px 14px;
   margin-bottom: 8px;
+
+  cursor: pointer;
 }
 
+.item-row:hover { background: var(--accent-soft); }
 .item-row.expiring-soon { border-left-color: var(--warm); }
 .item-row.expired { border-left-color: var(--danger); }
+
+.item-quantity-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.quantity-controls {
+  display: flex;
+  gap: 6px;
+}
+
+.qty-btn {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  cursor: pointer;
+
+  width: 30px;
+  height: 30px;
+}
+
+.qty-btn:hover {
+  background: var(--accent-soft);
+}
 
 .item-main {
   min-width: 0;

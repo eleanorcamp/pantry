@@ -242,42 +242,77 @@ function renderItems(items) {
 function renderItemRow(item) {
   const row = document.createElement('div')
   row.className = 'item-row'
- 
+
   const status = expiryStatus(item.expir_date)
   if (status) row.classList.add(status)
- 
-  const main = document.createElement('div')
-  main.className = 'item-main'
- 
+
+  row.addEventListener('click', () => {
+    openDialog(item)
+  })
+
+  // ---------- NAME ROW ----------
+
   const name = document.createElement('div')
   name.className = 'item-name'
-  name.textContent =
-    item.quantity && item.unit ? `${item.food_name} (${item.quantity} ${item.unit})` : item.food_name
-  main.appendChild(name)
- 
+  name.textContent = item.food_name
+
+  // ---------- QUANTITY ROW ----------
+
+  const quantityRow = document.createElement('div')
+  quantityRow.className = 'item-quantity-row'
+
+  const quantityText = document.createElement('span')
+  quantityText.className = 'item-quantity'
+
+  quantityText.textContent =
+    `${item.quantity ?? 0} ${item.unit ?? ''}`
+
+  const controls = document.createElement('div')
+  controls.className = 'quantity-controls'
+
+  const minusBtn = document.createElement('button')
+  minusBtn.className = 'qty-btn'
+  minusBtn.textContent = '−'
+
+  minusBtn.addEventListener('click', async (e) => {
+    e.stopPropagation()
+
+    await updateQuantity(
+      item.id,
+      Math.max(0, (item.quantity ?? 0) - 1)
+    )
+  })
+
+  const plusBtn = document.createElement('button')
+  plusBtn.className = 'qty-btn'
+  plusBtn.textContent = '+'
+
+  plusBtn.addEventListener('click', async (e) => {
+    e.stopPropagation()
+
+    await updateQuantity(
+      item.id,
+      (item.quantity ?? 0) + 1
+    )
+  })
+
+  controls.appendChild(minusBtn)
+  controls.appendChild(plusBtn)
+
+  quantityRow.appendChild(quantityText)
+  quantityRow.appendChild(controls)
+
+  // ---------- DATES ROW ----------
+
   const dates = document.createElement('div')
   dates.className = 'item-dates'
   dates.innerHTML = datesLabel(item, status)
-  main.appendChild(dates)
- 
-  row.appendChild(main)
- 
-  const actions = document.createElement('div')
-  actions.className = 'item-actions'
- 
-  const editBtn = document.createElement('button')
-  editBtn.className = 'icon-btn'
-  editBtn.textContent = 'Edit'
-  editBtn.addEventListener('click', () => openDialog(item))
-  actions.appendChild(editBtn)
- 
-  const delBtn = document.createElement('button')
-  delBtn.className = 'icon-btn delete'
-  delBtn.textContent = 'Remove'
-  delBtn.addEventListener('click', () => handleDelete(item.id))
-  actions.appendChild(delBtn)
- 
-  row.appendChild(actions)
+
+  // ---------- ASSEMBLE ROW ----------
+
+  row.appendChild(name)
+  row.appendChild(quantityRow)
+  row.appendChild(dates)
   return row
 }
  
@@ -342,7 +377,21 @@ async function handleSave(e) {
   closeDialog()
   await loadItems()
 }
- 
+
+async function updateQuantity(id, quantity) {
+  const { error } = await supabase
+    .from('food_items')
+    .update({ quantity })
+    .eq('id', id)
+
+  if (error) {
+    showError(error.message)
+    return
+  }
+
+  await loadItems()
+}
+
 async function handleDelete(id) {
   if (!confirm('Remove this item?')) return
   const { error } = await supabase.from('food_items').delete().eq('id', id)
